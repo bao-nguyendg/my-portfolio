@@ -687,3 +687,55 @@ footer p { color: var(--text-muted); margin-bottom: 20px;}
         min-width: 100%; /* Hiện 1 ảnh trên điện thoại */
     }
 }
+
+/* Tối ưu hóa phần hoạt động (Activities) trên thiết bị di động dưới 768px */
+@media (max-width: 768px) {
+    /* Đảm bảo khung bọc slider cho phép cuộn ngang vuốt mượt mà */
+    .slider-wrapper {
+        width: 100%;
+        overflow: hidden;
+        padding: 10px 0;
+    }
+
+    /* Định hình lại thanh trượt slide */
+    .activities-slider {
+        display: flex;
+        gap: 15px !important; /* Thu hẹp khoảng cách các thẻ ảnh */
+        overflow-x: auto; /* Cho phép vuốt tay trên điện thoại */
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        padding: 0 5px;
+    }
+
+    /* Định dạng kích thước từng card ảnh phù hợp màn hình dọc */
+    .activity-card {
+        flex: 0 0 85% !important; /* Mỗi ảnh chiếm 85% chiều rộng màn hình để chừa một chút ảnh tiếp theo */
+        scroll-snap-align: center;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    /* ĐẶC BIỆT CỦA BẠN: Khống chế khung bọc ảnh không bị vỡ chiều cao */
+    .activity-img-wrapper {
+        width: 100%;
+        height: 220px !important; /* Cố định chiều cao hiển thị đẹp trên điện thoại */
+        overflow: hidden;
+        position: relative;
+        border-radius: 8px 8px 0 0;
+    }
+
+    /* Ép ảnh lấp đầy và không bị méo tỉ lệ gốc */
+    .activity-img-wrapper img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important; /* Giữ nguyên tỉ lệ, tự cắt góc vừa khung */
+        object-position: center !important; /* Căn giữa khuôn hình */
+        display: block;
+    }
+    
+    /* Ẩn thanh cuộn ngang mặc định xấu xí của trình duyệt điện thoại */
+    .activities-slider::-webkit-scrollbar {
+        display: none;
+    }
+}
