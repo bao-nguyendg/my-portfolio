@@ -32,8 +32,8 @@
     <section id="about" class="hero-section">
         <div class="container">
             <div class="hero-header-block">
-                <div class="badge-tech"><i class="fa-solid fa-bolt"></i> IBM Maximo Specialist | Technical Consultant | EAM & CMMS Engineer </div>
                 <h2 class="tagline">IBM Maximo Specialist | Technical Consultant | EAM & CMMS Engineer</h2>
+
             </div>
             <div class="hero-split-body">
                 <div class="hero-text-side">
@@ -41,6 +41,7 @@
                     <div class="hero-buttons">
                         <a href="#projects" class="btn-primary">Khám Phá Dự Án <i class="fa-solid fa-rocket"></i></a>
                         <a href="#development" class="btn-secondary-light">Chứng Chỉ & Kỹ Năng <i class="fa-solid fa-award"></i></a>
+                        <a href="#development" class="btn-secondary-light">Số lượt ghé thăm: <span id="count" style="font-weight: bold; color: #00bcd4;">...</span></a>
                     </div>
                 </div>
                 
@@ -495,6 +496,8 @@
                 <p><i class="fa-solid fa-briefcase"></i> <strong>Trạng thái:</strong> OPEN TO WORK HCM/QUẢNG NGÃI </p>
 
             </div>
+                        <!-- Bộ đếm lượt truy cập -->
+  
             <p class="copyright">&copy; Portfolio Nguyen Duong Gia Bao.</p>
         </div>
     </footer>
@@ -574,5 +577,22 @@
             }, 3000); // 3000ms = Tự động chuyển slide sau mỗi 3 giây
         });
     </script>
+    <script>
+    // Sử dụng API miễn phí của HITS để đếm lượt truy cập dựa trên URL của bạn
+    // Thay 'baonguyen-portfolio' bằng tên bất kỳ định danh cho trang của bạn
+    fetch('https://hits.seeyoufarm.com/api/count/incr/badge.json?url=https://baonguyen-portfolio.github.io&count_bg=%23795548&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false')
+    .then(response => response.json())
+    .then(data => {
+        // Hàm này sẽ tự động lấy data lượt xem và gắn vào giao diện
+        // Do API trả về cấu hình SVG badge, nếu muốn lấy số thuần túy ta có thể dùng một API Counter khác gọn hơn:
+    });
+
+    // --- HOẶC DÙNG COUNTAPI (GỌN HƠN) ---
+    function cb(response) {
+        document.getElementById('count').innerText = response.value;
+    }
+</script>
+<!-- Nhúng thư viện đếm của CountAPI (Tự động tăng khi load trang) -->
+<script async src="https://api.countapi.xyz/hit/nguyenduonggiabao.portfolio/visits?callback=cb"></script>
 </body>
 </html>
