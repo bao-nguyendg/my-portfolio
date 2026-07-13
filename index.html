@@ -578,20 +578,38 @@
         });
     </script>
     <script>
-    // Sử dụng API miễn phí của HITS để đếm lượt truy cập dựa trên URL của bạn
-    // Thay 'baonguyen-portfolio' bằng tên bất kỳ định danh cho trang của bạn
-    fetch('https://hits.seeyoufarm.com/api/count/incr/badge.json?url=https://baonguyen-portfolio.github.io&count_bg=%23795548&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false')
-    .then(response => response.json())
-    .then(data => {
-        // Hàm này sẽ tự động lấy data lượt xem và gắn vào giao diện
-        // Do API trả về cấu hình SVG badge, nếu muốn lấy số thuần túy ta có thể dùng một API Counter khác gọn hơn:
-    });
+        // Hàm chạy ngay khi trang web tải xong
+        window.addEventListener('DOMContentLoaded', () => {
+            // Khởi tạo các tham số định danh duy nhất cho repo của bạn
+            const namespace = "bao-nguyendg-github-io";
+            const key = "my-portfolio-visits";
 
-    // --- HOẶC DÙNG COUNTAPI (GỌN HƠN) ---
-    function cb(response) {
-        document.getElementById('count').innerText = response.value;
-    }
-</script>
+            // Gọi API cập nhật tăng số lượt truy cập (+1 mỗi lần load trang)
+            fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Mạng lỗi hoặc không kết nối được API');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // data.value là con số thực tế trả về từ hệ thống đếm
+                    const countElement = document.getElementById('count');
+                    if (countElement) {
+                        // toLocaleString() giúp tự động thêm dấu phẩy phân cách hàng nghìn (VD: 1,250)
+                        countElement.innerText = data.value.toLocaleString();
+                    }
+                })
+                .catch(error => {
+                    console.error("Lỗi hệ thống đếm lượt truy cập:", error);
+                    // Fallback nếu API trục trặc để giao diện không bị xấu
+                    const countElement = document.getElementById('count');
+                    if (countElement && countElement.innerText === "...") {
+                        countElement.innerText = "1";
+                    }
+                });
+        });
+    </script>
 <!-- Nhúng thư viện đếm của CountAPI (Tự động tăng khi load trang) -->
 <script async src="https://api.countapi.xyz/hit/nguyenduonggiabao.portfolio/visits?callback=cb"></script>
 </body>
